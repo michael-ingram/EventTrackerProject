@@ -16,11 +16,11 @@ CREATE SCHEMA IF NOT EXISTS `banddb` DEFAULT CHARACTER SET utf8 ;
 USE `banddb` ;
 
 -- -----------------------------------------------------
--- Table `show`
+-- Table `concert`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `show` ;
+DROP TABLE IF EXISTS `concert` ;
 
-CREATE TABLE IF NOT EXISTS `show` (
+CREATE TABLE IF NOT EXISTS `concert` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -38,11 +38,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `show`
+-- Data for table `concert`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `banddb`;
-INSERT INTO `show` (`id`, `name`) VALUES (1, 'First Show');
+INSERT INTO `concert` (`id`, `name`) VALUES (1, 'First Show');
 
 COMMIT;
 
