@@ -22,7 +22,13 @@ DROP TABLE IF EXISTS `concert` ;
 
 CREATE TABLE IF NOT EXISTS `concert` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `venue` VARCHAR(100) NULL,
+  `street` VARCHAR(500) NULL,
+  `city` VARCHAR(100) NULL,
+  `state` VARCHAR(2) NULL,
+  `zipcode` VARCHAR(6) NULL,
+  `concert_date` DATE NULL,
+  `concert_time` TIME NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -42,7 +48,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `banddb`;
-INSERT INTO `concert` (`id`, `name`) VALUES (1, 'First Show');
+INSERT INTO `concert` (`id`, `venue`, `street`, `city`, `state`, `zipcode`, `concert_date`, `concert_time`) VALUES (1, 'Madison Square Garden', '4 Pennsylvania Plaza', 'New York', 'NY', '10001', '2021-08-20', '19:00:00');
+INSERT INTO `concert` (`id`, `venue`, `street`, `city`, `state`, `zipcode`, `concert_date`, `concert_time`) VALUES (2, 'Red Rocks Ampitheater', '18300 W Alameda Parkway', 'Morrison', 'CO', '80465', '2021-08-28', '21:00:00');
+INSERT INTO `concert` (`id`, `venue`, `street`, `city`, `state`, `zipcode`, `concert_date`, `concert_time`) VALUES (3, 'Hollywood Bowl Ampitheater', '2301 N Highland Ave', 'Los Angeles', 'CA', '90068', '2021-09-05', '20:00:00');
 
 COMMIT;
 

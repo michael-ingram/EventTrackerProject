@@ -46,7 +46,7 @@ class ConcertTest {
 	@DisplayName("Concert Entity Mapping")
 	void test1() {
 		assertNotNull(concert);
-		assertEquals("First Show", concert.getName());
+		assertEquals("Madison Square Garden", concert.getVenue());
 	}
 
 }
