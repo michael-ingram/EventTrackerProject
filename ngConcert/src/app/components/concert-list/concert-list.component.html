@@ -1,0 +1,217 @@
+
+
+
+  <html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Funk Shack Band</title>
+  <!-- Bootstrap -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script> -->
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Roboto&display=swap" rel="stylesheet">
+<!-- CSS -->
+  <!-- <link rel="stylesheet" href="CSS_Styles/styles.css"> -->
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../../assets/favicon.ico">
+</head>
+
+<body>
+
+
+  <!-- Nav Bar -->
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2E3178;">
+  <div class="container">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse"  data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+          <ul class="navbar-nav nav-fill w-100">
+
+              <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/home']">About</a>
+              </li>
+
+
+              <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/listen']">Listen</a>
+              </li>
+
+
+              <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+              </li>
+
+              <li class="nav-item active">
+                <a class="nav-link active" [routerLink]="['/concerts']">Concerts</a>
+            </li>
+
+          </ul>
+
+      </div>
+  </div>
+</nav>
+
+
+  <!-- Title Section -->
+    <section class = "Title">
+
+
+
+      <div class="titlerow row">
+        <div class="col-lg-4">
+          <h1>Funk</h1>
+        </div>
+        <div class="col-lg-4" id="logoDiv">
+          <img src='https://i.imgur.com/0nlyBZB.png' alt="Logo" class="Logo" id="bandLogo">
+        </div>
+        <div class="col-lg-4">
+          <h1>Shack</h1>
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- About -->
+
+    <section class="About">
+
+
+
+        <div class="jumbotron jumbotron-fluid about-jumbo">
+
+
+        <h3 class="showHeader" *ngIf="! selected">Upcoming Shows:  {{getNumberOfConcerts()}}</h3>
+<table *ngIf="!selected" class="table concertTable">
+  <thead>
+    <tr>
+    <th>Venue</th><th>City</th><th>State</th><th>Date</th><th></th><th></th>
+  </tr>
+  </thead>
+
+<tbody>
+<tr *ngFor="let concert of concerts">
+  <td (click)="displayConcert(concert)">{{concert.venue}}</td>
+  <td>{{concert.city}}</td>
+  <td>{{concert.state}}</td>
+  <td>{{concert.concertDate}}</td>
+  <td ><button (click)="displayConcert(concert)" class="btn btn-light tableButton">Details</button></td>
+  <td><button (click)="destroyConcert(concert.id)" class="btn btn-light tableButton">Delete</button></td>
+</tr>
+</tbody>
+
+</table>
+
+
+
+<form *ngIf="!selected">
+  <h3>Add Upcoming Show</h3>
+  <input type="text" class="form-control addConcForm" name="venue" placeholder="Venue" [(ngModel)]="newConcert.venue">
+  <input type="text" class="form-control addConcForm" name="street" placeholder="Street Address" [(ngModel)]="newConcert.street">
+  <input type="text" class="form-control addConcForm" name="city" placeholder="City" [(ngModel)]="newConcert.city">
+  <input type="text" class="form-control addConcForm" name="state" placeholder="State (2 Letter)" [(ngModel)]="newConcert.state">
+  <input type="text" class="form-control addConcForm" name="zip" placeholder="Zipcode (5 Digit)" [(ngModel)]="newConcert.zip">
+  <input type="text" class="form-control addConcForm" name="concertDate" placeholder="Date (YYYY-MM-DD)" [(ngModel)]="newConcert.concertDate">
+  <input type="text" class="form-control addConcForm" name="concertTime" placeholder="Time (HH:MM:SS)" [(ngModel)]="newConcert.concertTime">
+  <div class="addConcertBtnDiv">
+  <input type="submit" value="Add Concert" (click)="addTodo()" class="btn btn-light addConcBtn">
+</div>
+</form>
+
+<div id='todoDetails' *ngIf="selected && !editConcert">
+  <h3>Venue: {{selected.venue}}</h3>
+  <p>Street: {{selected.street}}</p>
+  <p>City: {{selected.city}}</p>
+  <p>State: {{selected.state}}</p>
+  <p>Zipcode: {{selected.zip}}</p>
+  <p>Date: {{selected.concertDate}}</p>
+  <p>Time: {{selected.concertTime}} MST</p>
+  <div class="addConcertBtnDiv">
+  <button (click)="displayTable()" class="btn btn-light addConcBtnEdit">Back</button>
+  <button (click)="setEditConcert()" class="btn btn-light addConcBtnEdit">Edit</button>
+  </div>
+</div>
+
+<form id="editTodo" *ngIf="editConcert">
+  <h3>Edit Concert</h3>
+  <div class="addConcertBtnDiv">
+  <label class="editLabel" for="venue">Venue:</label>
+  <input type="text" class="form-control addConcForm" name="venue" [(ngModel)]="editConcert.venue">
+  <label class="editLabel" for="street">Street:</label>
+  <input type="text" class="form-control addConcForm" name="street" [(ngModel)]="editConcert.street">
+  <label class="editLabel" for="city">City:</label>
+  <input type="text" class="form-control addConcForm" name="city" [(ngModel)]="editConcert.city">
+  <label class="editLabel" for="state">State:</label>
+  <input type="text" class="form-control addConcForm" name="state" [(ngModel)]="editConcert.state">
+  <label class="editLabel" for="zip">Zip:</label>
+  <input type="text" class="form-control addConcForm" name="zip" [(ngModel)]="editConcert.zip">
+  <label class="editLabel" for="concertDate">Date:</label>
+  <input type="text" class="form-control addConcForm" name="concertDate" [(ngModel)]="editConcert.concertDate">
+  <label class="editLabel" for="venue">Time:</label>
+  <input type="text" class="form-control addConcForm" name="concertTime" [(ngModel)]="editConcert.concertTime">
+
+  <input type="submit" class="btn btn-light addConcBtnEdit" name="Save" value="Save" (click)="updateConcert(editConcert)">
+  <input type="submit" class="btn btn-light addConcBtnEdit" name="Cancel" value="Cancel" (click)="editConcert=null">
+</div>
+</form>
+      </div>
+
+    </section>
+
+
+<!-- Footer -->
+
+<footer class="page-footer font-small blue pt-4 mt-4" id='foot'>
+  <!--Footer Links-->
+
+
+
+  <div class="container-fluid text-center text-md-center foot-jumbo">
+
+
+
+        <h3 class="text-uppercase footer-Title">Funk Shack Band</h3>
+
+
+        <!--/.Footer Links-->
+        <h4 class="text-uppercase">Links</h4>
+        <ul class="list-unstyled">
+          <li><a href="https://www.facebook.com/" style="color: #00C800;">Facebook</a></li>
+          <li><a href="https://www.instagram.com/" style="color: #00C800;">Instagram</a></li>
+          <li><a href="https://soundcloud.com/user-805032267" style="color: #00C800;">Soundcloud</a></li>
+        </ul>
+
+        <div class="footer-copyright py-3 text-center">
+          <p class="footer-email">Email: funkshackband@gmail.com</p>
+          <div class="container-fluid">
+
+            © 2021 Copyright: Michael Ingram
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+  </footer>
+
+
+  </body>
+
+  </html>
+
