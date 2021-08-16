@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Concert } from '../models/concert';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -10,8 +11,8 @@ import { catchError } from 'rxjs/operators';
 })
 export class ConcertsService {
   private concerts: Concert[] = [];
-  baseUrl = 'http://localhost:8084';
-  url = this.baseUrl + '/api/Concerts';
+  // baseUrl = 'http://localhost:8084';
+  url = environment.baseUrl + '/api/Concerts';
 
   httpOptions = {
     headers: {
